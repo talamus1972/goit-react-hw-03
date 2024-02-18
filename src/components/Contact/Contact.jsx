@@ -1,4 +1,6 @@
 import css from "./Contact.module.css"
+import { IoPersonSharp } from "react-icons/io5";
+import { FaPhone } from "react-icons/fa6";
 
 export default function Contact({name, number}) {
     return (
@@ -6,11 +8,11 @@ export default function Contact({name, number}) {
             <li className={css.item} >
                 <div>
                 <div className={css.text} >
-                <span>Icon</span>       
+                <span><IoPersonSharp/></span>       
                 <p>{name}</p>
             </div>  
             <div className={css.text}>
-                <span>Icon</span>           
+                <span><FaPhone/></span>           
                 <p>{number}</p>                
             </div>
                 </div>    
