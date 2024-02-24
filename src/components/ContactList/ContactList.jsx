@@ -1,15 +1,13 @@
-import Contact from "../Contact/Contact"
+import Contact from "../Contact/Contact";
 
-export default function ContactList({contacts}) {
-    return (
-        <>
-        <ul>
+export default function ContactList({ contacts }) {
+  return (
+    <>
+      <ul>
         {contacts.map(({ id, name, number }) => {
-        return <Contact key={id} name={name} number={number} />
-    }             
-                ) }
-        </ul>
-        </>
-        
-    )
+          return <Contact key={id} name={name} number={number} />;
+        })}
+      </ul>
+    </>
+  );
 }
