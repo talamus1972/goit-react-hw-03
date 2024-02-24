@@ -5,22 +5,22 @@ import * as Yup from "yup";
 import { ErrorMessage } from "formik";
 
 const FeedbackSchema = Yup.object().shape({
-  username: Yup.string()
+  name: Yup.string()
     .min(3, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
-  phone: Yup.string()
+  number: Yup.string()
     .min(3, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
 });
 
 const initialValues = {
-  username: "",
-  phone: "",
+  name: "",
+  number: "",
 };
 
-export default function ContactForm({ onSavedForm }) {
+export default function ContactForm({ onAdd }) {
   const usernameFieldId = useId();
   const phoneFieldId = useId();
 
@@ -29,7 +29,8 @@ export default function ContactForm({ onSavedForm }) {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          onSavedForm(values);
+          onAdd(values);
+          console.log(values);
           actions.resetForm();
         }}
         validationSchema={FeedbackSchema}
@@ -39,23 +40,19 @@ export default function ContactForm({ onSavedForm }) {
           <Field
             className={css.input}
             type="text"
-            name="username"
+            name="name"
             id={usernameFieldId}
           />
-          <ErrorMessage
-            className={css.error}
-            name="username"
-            component="span"
-          />
+          <ErrorMessage className={css.error} name="name" component="span" />
 
           <label htmlFor={phoneFieldId}>Number</label>
           <Field
             className={css.input}
-            type="number"
-            name="phone"
+            type="text"
+            name="number"
             id={phoneFieldId}
           />
-          <ErrorMessage className={css.error} name="phone" component="span" />
+          <ErrorMessage className={css.error} name="number" component="span" />
 
           <button className={css.btn} type="submit">
             Add contact

@@ -1,12 +1,15 @@
 import Contact from "../Contact/Contact";
+import css from "./ContactsList.module.css";
 
-export default function ContactList({ contacts }) {
+export default function ContactList({ tasks, onDelete }) {
   return (
     <>
       <ul>
-        {contacts.map(({ id, name, number }) => {
-          return <Contact key={id} name={name} number={number} />;
-        })}
+        {tasks.map((task) => (
+          <li key={task.id} className={css.item}>
+            <Contact data={task} onDelete={onDelete} />
+          </li>
+        ))}
       </ul>
     </>
   );

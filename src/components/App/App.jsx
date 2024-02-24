@@ -3,27 +3,36 @@ import ContactList from "../ContactList/ContactList";
 import contacts from "../contacts.json";
 import SearchBox from "../SearchBox/SearchBox";
 import ContactForm from "../ContactForm/ContactForm";
+import { nanoid } from "nanoid";
 
 export default function App() {
-  const [value, setValue] = useState("");
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const [tasks, setTasks] = useState(contacts);
+  const [filter, setFilter] = useState("");
+
+  const addTask = (newTask) => {
+    setTasks((prevTasks) => {
+      console.log(newTask);
+      return [...prevTasks, { ...newTask, id: nanoid() }];
+    });
   };
 
-  const handleFormSubmit = (x) => {
-    console.log(x);
+  const deleteTask = (taskId) => {
+    console.log(taskId);
+    setTasks((prevTasks) => {
+      return prevTasks.filter((task) => task.id !== taskId);
+    });
   };
 
-  const filteredContacts = contacts.filter((contact) => {
-    return contact.name.toLowerCase().includes(value.toLowerCase());
+  const visibleTasks = tasks.filter((task) => {
+    return task.name.toLowerCase().includes(filter.toLowerCase());
   });
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm onSavedForm={handleFormSubmit} />
-      <SearchBox onChange={handleChange} />
-      <ContactList contacts={filteredContacts} />
+      <ContactForm onAdd={addTask} />
+      <SearchBox value={filter} onFilter={setFilter} />
+      <ContactList tasks={visibleTasks} onDelete={deleteTask} />
     </div>
   );
 }
