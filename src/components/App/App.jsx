@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContactList from "../ContactList/ContactList";
 import contacts from "../contacts.json";
 import SearchBox from "../SearchBox/SearchBox";
@@ -6,9 +6,14 @@ import ContactForm from "../ContactForm/ContactForm";
 import { nanoid } from "nanoid";
 
 export default function App() {
-  const [tasks, setTasks] = useState(contacts);
+  const [tasks, setTasks] = useState(() => {
+    const savedClick = window.localStorage.getItem("clicks")
+    console.log(savedClick);
+return savedClick !== null ? JSON.parse(savedClick) : contacts
+    
+  });
   const [filter, setFilter] = useState("");
-
+    
   const addTask = (newTask) => {
     setTasks((prevTasks) => {
       console.log(newTask);
@@ -16,6 +21,12 @@ export default function App() {
     });
   };
 
+   useEffect(() => {
+  window.localStorage.setItem("clicks", JSON.stringify(tasks) )
+   }, [tasks])
+  
+
+  
   const deleteTask = (taskId) => {
     console.log(taskId);
     setTasks((prevTasks) => {

@@ -1,3 +1,11 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+
+
 .item {
     display: flex;
     font-size: large;
