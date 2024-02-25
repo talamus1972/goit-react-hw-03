@@ -16,13 +16,12 @@ return savedClick !== "[]" ? JSON.parse(savedClick) : contacts
     
   const addTask = (newTask) => {
     setTasks((prevTasks) => {
-      console.log(newTask);
       return [...prevTasks, { ...newTask, id: nanoid() }];
     });
   };
 
    useEffect(() => {
-  window.localStorage.setItem("clicks", JSON.stringify(tasks) )
+     window.localStorage.setItem("clicks", JSON.stringify(tasks))
    }, [tasks])
   
 
