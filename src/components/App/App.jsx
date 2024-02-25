@@ -6,43 +6,41 @@ import ContactForm from "../ContactForm/ContactForm";
 import { nanoid } from "nanoid";
 
 export default function App() {
-  const [tasks, setTasks] = useState(() => {
-    const savedClick = window.localStorage.getItem("clicks")
-    console.log(savedClick);
+  const [contact, setContact] = useState(() => {
+    const savedClick = window.localStorage.getItem("contacts")
 return savedClick !== null && savedClick !== "[]" ? JSON.parse(savedClick) : contacts
     
   });
   const [filter, setFilter] = useState("");
     
-  const addTask = (newTask) => {
-    setTasks((prevTasks) => {
-      return [...prevTasks, { ...newTask, id: nanoid() }];
+  const addContact = (newContact) => {
+    setContact((prevContacts) => {
+      return [...prevContacts, { ...newContact, id: nanoid() }];
     });
   };
 
    useEffect(() => {
-     window.localStorage.setItem("clicks", JSON.stringify(tasks))
-   }, [tasks])
+     window.localStorage.setItem("contacts", JSON.stringify(contact))
+   }, [contact])
   
 
   
-  const deleteTask = (taskId) => {
-    console.log(taskId);
-    setTasks((prevTasks) => {
-      return prevTasks.filter((task) => task.id !== taskId);
+  const deleteContact = (contactId) => {
+    setContact((prevContacts) => {
+      return prevContacts.filter((contact) => contact.id !== contactId);
     });
   };
 
-  const visibleTasks = tasks.filter((task) => {
-    return task.name.toLowerCase().includes(filter.toLowerCase());
+  const visibleTasks = contact.filter((cont) => {
+    return cont.name.toLowerCase().includes(filter.toLowerCase());
   });
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm onAdd={addTask} />
+      <ContactForm onAdd={addContact} />
       <SearchBox value={filter} onFilter={setFilter} />
-      <ContactList tasks={visibleTasks} onDelete={deleteTask} />
+      <ContactList contacts={visibleTasks} onDelete={deleteContact} />
     </div>
   );
 }
