@@ -9,7 +9,7 @@ export default function App() {
   const [tasks, setTasks] = useState(() => {
     const savedClick = window.localStorage.getItem("clicks")
     console.log(savedClick);
-return savedClick !== "[]" ? JSON.parse(savedClick) : contacts
+return savedClick !== null && savedClick !== "[]" ? JSON.parse(savedClick) : contacts
     
   });
   const [filter, setFilter] = useState("");
